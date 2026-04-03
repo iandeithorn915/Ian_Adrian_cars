@@ -1,0 +1,44 @@
+
+CREATE TABLE IF NOT EXISTS admin_settings (
+  id TINYINT UNSIGNED NOT NULL PRIMARY KEY,
+  password_hash VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS allowed_weekdays (
+  weekday TINYINT UNSIGNED NOT NULL PRIMARY KEY
+);
+
+CREATE TABLE IF NOT EXISTS blocked_days (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  date DATE NOT NULL UNIQUE,
+  reason VARCHAR(255) NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS blocked_slots (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  date DATE NOT NULL,
+  slot VARCHAR(100) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY unique_slot (date, slot)
+);
+
+CREATE TABLE IF NOT EXISTS bookings (
+  id VARCHAR(40) NOT NULL PRIMARY KEY,
+  created_at DATETIME NOT NULL,
+  status VARCHAR(20) NOT NULL DEFAULT 'confirmed',
+  service VARCHAR(255) NOT NULL,
+  service_tier VARCHAR(100) NULL,
+  vehicle_type VARCHAR(100) NULL,
+  car VARCHAR(255) NULL,
+  custom_request TEXT NULL,
+  name VARCHAR(150) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  phone VARCHAR(50) NOT NULL,
+  booking_date DATE NOT NULL,
+  booking_time VARCHAR(100) NOT NULL,
+  address TEXT NULL,
+  KEY idx_booking_date_time_status (booking_date, booking_time, status)
+);
