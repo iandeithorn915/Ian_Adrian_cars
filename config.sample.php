@@ -4,6 +4,6 @@ return [
     'db_port' => 3306,
     'db_name' => 'carcleaning',
     'db_user' => 'root',
-    'db_pass' => 'IT202_class',
+    'db_pass' => '',
     'session_name' => 'iac_admin_session',
 ];
